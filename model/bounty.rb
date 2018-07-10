@@ -55,7 +55,7 @@ attr_writer :name, :species, :bounty, :danger_level
     db.prepare('find_by_name', sql)
     # execute the save method - give to SQL
     dataset = db.exec_prepared('find_by_name')
-    bounty_object = Bounty.new(dataset)
+    bounty_object = Bounty.new(dataset[0])
     # close connection to db
     db.close()
     return bounty_object
