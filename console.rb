@@ -12,9 +12,6 @@ bounty3.save
 
 # bounty1.danger_level = "medium"
 # bounty1.update()
-#
-bounty1.delete
+# bounty1.delete
 
-result = Bounty.all
-
-p result
+p Bounty.find_by_name('David Bowie')

@@ -50,16 +50,15 @@ attr_writer :name, :species, :bounty, :danger_level
     # connect to db
     db = PG.connect( { dbname: 'bounty_table', host: 'localhost' })
     # write our SQL with actual values/variables
-      sql = "SELECT * FROM bounty_table WHERE name = $1;"
-      values = [spacebounty]
+      sql = "SELECT * FROM bounty_table WHERE name = '#{spacebounty}';"
     # prepare the string for execution
-    db.prepare( 'find_by_name', sql)
+    db.prepare('find_by_name', sql)
     # execute the save method - give to SQL
-    result = db.exec_prepared('find_by_name', values)
-    result = Bounty.new(result)
-
+    dataset = db.exec_prepared('find_by_name')
+    bounty_object = Bounty.new(dataset)
     # close connection to db
     db.close()
+    return bounty_object
   end
 
   def save
