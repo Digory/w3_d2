@@ -55,8 +55,20 @@ attr_writer :name, :species, :bounty, :danger_level
     db.prepare('find_by_name', sql)
     # execute the save method - give to SQL
     dataset = db.exec_prepared('find_by_name')
+    return if dataset.num_tuples.zero?
     bounty_object = Bounty.new(dataset[0])
     # close connection to db
+    db.close()
+    return bounty_object
+  end
+
+  def Bounty.find_by_id(the_id)
+    db = PG.connect( {dbname: 'bounty_table', host: 'localhost' } )
+    sql = "SELECT * FROM bounty_table WHERE id = #{the_id};"
+    db.prepare('find_by_id', sql)
+    dataset = db.exec_prepared('find_by_id')
+    return if dataset.num_tuples.zero?
+    bounty_object = Bounty.new(dataset[0])
     db.close()
     return bounty_object
   end

@@ -14,4 +14,4 @@ bounty3.save
 # bounty1.update()
 # bounty1.delete
 
-p Bounty.find_by_name('David Bowie')
+p Bounty.find_by_id('100')
